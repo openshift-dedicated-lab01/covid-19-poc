@@ -26,9 +26,12 @@ public class TrackerProxyApplication {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			TrackerStats trackerStats = restTemplate.getForObject(
-					"https://corona-stats.online/Canada?format=json", TrackerStats.class);
-			log.info(Integer.toString(trackerStats.getTrackerStats().size()));
+			TrackerStats[] trackerStats = restTemplate.getForObject(
+					"https://corona-stats.online/Canada?format=json", TrackerStats[].class);
+			for (TrackerStats stat: trackerStats) {
+				log.info("Province: " + stat.getProvince());
+				log.info("Décès: " + stat.getDeaths());
+			}
 		};
 	}
 }

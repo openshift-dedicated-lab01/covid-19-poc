@@ -1,7 +1,5 @@
 package com.covid.TrackerProxy;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -10,136 +8,124 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *         helper.
  *
  */
+// indicates that any properties not bound in this type should be ignored.
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TrackerStats {
-	private ArrayList<TrackerStat> trackerStats = new ArrayList<>();
+	private String country; // Canada
+	private String province; // Québec
+	private String countryCode; // CA
+	private String confirmed;
+	private String recovered;
+	private String deaths;
+	private int[] confirmedByDay;
+	private int[] recoveredByDay;
+	private int[] deathsByDay;
+	private String lastUpdated; // 2020-03-20T18:15:45.004949Z
+	private String active;
+	private String mortalityPer;
+	private String recoveredPer;
 
-	public ArrayList<TrackerStat> getTrackerStats() {
-		return trackerStats;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setTrackerStats(ArrayList<TrackerStat> trackerStats) {
-		this.trackerStats = trackerStats;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	// indicates that any properties not bound in this type should be ignored.
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	public class TrackerStat {
-		private String country; // Canada
-		private String province; // Québec
-		private String countryCode; // CA
-		private String confirmed;
-		private String recovered;
-		private String deaths;
-		private int[] confirmedByDay;
-		private int[] recoveredByDay;
-		private int[] deathsByDay;
-		private String lastUpdated; // 2020-03-20T18:15:45.004949Z
-		private String active;
-		private String mortalityPer;
-		private String recoveredPer;
+	public String getProvince() {
+		return province;
+	}
 
-		public String getCountry() {
-			return country;
-		}
+	public void setProvince(String province) {
+		this.province = province;
+	}
 
-		public void setCountry(String country) {
-			this.country = country;
-		}
+	public String getCountryCode() {
+		return countryCode;
+	}
 
-		public String getProvince() {
-			return province;
-		}
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 
-		public void setProvince(String province) {
-			this.province = province;
-		}
+	public String getConfirmed() {
+		return confirmed;
+	}
 
-		public String getCountryCode() {
-			return countryCode;
-		}
+	public void setConfirmed(String confirmed) {
+		this.confirmed = confirmed;
+	}
 
-		public void setCountryCode(String countryCode) {
-			this.countryCode = countryCode;
-		}
+	public String getRecovered() {
+		return recovered;
+	}
 
-		public String getConfirmed() {
-			return confirmed;
-		}
+	public void setRecovered(String recovered) {
+		this.recovered = recovered;
+	}
 
-		public void setConfirmed(String confirmed) {
-			this.confirmed = confirmed;
-		}
+	public String getDeaths() {
+		return deaths;
+	}
 
-		public String getRecovered() {
-			return recovered;
-		}
+	public void setDeaths(String deaths) {
+		this.deaths = deaths;
+	}
 
-		public void setRecovered(String recovered) {
-			this.recovered = recovered;
-		}
+	public int[] getConfirmedByDay() {
+		return confirmedByDay;
+	}
 
-		public String getDeaths() {
-			return deaths;
-		}
+	public void setConfirmedByDay(int[] confirmedByDay) {
+		this.confirmedByDay = confirmedByDay;
+	}
 
-		public void setDeaths(String deaths) {
-			this.deaths = deaths;
-		}
+	public int[] getRecoveredByDay() {
+		return recoveredByDay;
+	}
 
-		public int[] getConfirmedByDay() {
-			return confirmedByDay;
-		}
+	public void setRecoveredByDay(int[] recoveredByDay) {
+		this.recoveredByDay = recoveredByDay;
+	}
 
-		public void setConfirmedByDay(int[] confirmedByDay) {
-			this.confirmedByDay = confirmedByDay;
-		}
+	public int[] getDeathsByDay() {
+		return deathsByDay;
+	}
 
-		public int[] getRecoveredByDay() {
-			return recoveredByDay;
-		}
+	public void setDeathsByDay(int[] deathsByDay) {
+		this.deathsByDay = deathsByDay;
+	}
 
-		public void setRecoveredByDay(int[] recoveredByDay) {
-			this.recoveredByDay = recoveredByDay;
-		}
+	public String getLastUpdated() {
+		return lastUpdated;
+	}
 
-		public int[] getDeathsByDay() {
-			return deathsByDay;
-		}
+	public void setLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 
-		public void setDeathsByDay(int[] deathsByDay) {
-			this.deathsByDay = deathsByDay;
-		}
+	public String getActive() {
+		return active;
+	}
 
-		public String getLastUpdated() {
-			return lastUpdated;
-		}
+	public void setActive(String active) {
+		this.active = active;
+	}
 
-		public void setLastUpdated(String lastUpdated) {
-			this.lastUpdated = lastUpdated;
-		}
+	public String getMortalityPer() {
+		return mortalityPer;
+	}
 
-		public String getActive() {
-			return active;
-		}
+	public void setMortalityPer(String mortalityPer) {
+		this.mortalityPer = mortalityPer;
+	}
 
-		public void setActive(String active) {
-			this.active = active;
-		}
+	public String getRecoveredPer() {
+		return recoveredPer;
+	}
 
-		public String getMortalityPer() {
-			return mortalityPer;
-		}
-
-		public void setMortalityPer(String mortalityPer) {
-			this.mortalityPer = mortalityPer;
-		}
-
-		public String getRecoveredPer() {
-			return recoveredPer;
-		}
-
-		public void setRecoveredPer(String recoveredPer) {
-			this.recoveredPer = recoveredPer;
-		}
+	public void setRecoveredPer(String recoveredPer) {
+		this.recoveredPer = recoveredPer;
 	}
 }
