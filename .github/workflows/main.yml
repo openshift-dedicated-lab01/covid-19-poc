@@ -52,6 +52,6 @@ jobs:
         
     - name: Push the container image to the Openshift registry
       run: |
-        'docker images'
-        '#docker login ...'
-        '#docker push' 
+        docker images
+        #docker login ...'
+        #docker push' 
