@@ -53,6 +53,7 @@ jobs:
       env:
         mysecret: ${{ secrets.mysecret1 }}
       run: |
+        pwd
         echo $mysecret
         echo $GITHUB_REF
         echo $GITHUB_ACTOR
