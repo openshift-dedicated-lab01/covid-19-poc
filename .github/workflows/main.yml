@@ -52,9 +52,6 @@ jobs:
         
     - name: Push the container image to the Openshift registry
       run: |
-        #docker build .
-
-    - name: test commands2
-      run: |
-        echo $test
-        cat /tmp/date
+        'docker images'
+        #'docker login -u <random> -p $(oc whoami -t) $(oc registry info)'
+        #'docker push' 
