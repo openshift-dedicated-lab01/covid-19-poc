@@ -34,15 +34,7 @@ jobs:
         
     - uses: actions/checkout@v1
 
-    - name: OpenShift Action
-      uses: redhat-developer/openshift-actions@v1.1
-      with:
-        version: 'latest'
-        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-        parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
-        cmd: |          
-          'version'
-          'registry info'
+
           
 
     # Runs a single command using the runners shell
@@ -53,5 +45,24 @@ jobs:
     - name: Push the container image to the Openshift registry
       run: |
         docker images
+
         #docker login ...'
-        #docker push' 
+        #docker push'
+        
+    - name: test secret and var
+      env:
+        mysecret: ${{ secrets.mysecret1 }}
+      run: |
+        echo $mysecret1
+        echo $GITHUB_REF
+        echo $GITHUB_ACTOR
+      
+    - name: OpenShift Action
+      uses: redhat-developer/openshift-actions@v1.1
+      with:
+        version: 'latest'
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+        parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
+        cmd: |          
+          'version'
+          'registry info'
