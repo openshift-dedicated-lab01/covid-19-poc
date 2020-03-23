@@ -43,3 +43,7 @@ jobs:
         cmd: |          
           'version'
           'registry info'
+
+    # Runs a single command using the runners shell
+    - name: test oc 
+      run: oc whoami
