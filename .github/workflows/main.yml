@@ -42,8 +42,11 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info'
+          'registry info > /tmp/openshift-registry'
 
     # Runs a single command using the runners shell
-    - name: test oc 
-      run: oc whoami
+    - name: test commands
+      run: |
+        cat /tmp/openshift-registry
+        test=$(date)
+        echo $test
