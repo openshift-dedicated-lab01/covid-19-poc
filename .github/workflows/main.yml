@@ -32,8 +32,8 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
         
-    # Test for Openshift
     - uses: actions/checkout@v1
+
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
@@ -42,15 +42,8 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info > /tmp/openshift-registry'
+          'registry info'
           
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: openshift-registry
-        # Directory containing files to upload
-        path: /tmp/openshift-registry 
 
     # Runs a single command using the runners shell
     - name: test commands
@@ -58,7 +51,7 @@ jobs:
         cat Dockerfile
         test=$(date)
         echo $test > /tmp/date
-        cat openshift-registry
+        docker --version
 
     - name: test commands2
       run: |
