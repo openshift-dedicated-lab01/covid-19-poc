@@ -46,15 +46,15 @@ jobs:
           
 
     # Runs a single command using the runners shell
-    - name: test commands
+    - name: Build the container image
       run: |
-        cat Dockerfile
-        test=$(date)
-        echo $test > /tmp/date
-        docker --version
+        docker build .
+        
+    - name: Push the container image to the Openshift registry
+      run: |
+        #docker build .
 
     - name: test commands2
       run: |
         echo $test
         cat /tmp/date
-        cat /tmp/openshift-registry
