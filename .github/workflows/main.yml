@@ -44,11 +44,23 @@ jobs:
           'version'
           'registry info > openshift-registry'
           
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: openshift-registry
+        # Directory containing files to upload
+        path: ./openshift-registry 
 
     # Runs a single command using the runners shell
     - name: test commands
       run: |
         cat Dockerfile
         test=$(date)
+        echo $test
+        cat openshift-registry
+
+    - name: test commands2
+      run: |
         echo $test
         cat openshift-registry
