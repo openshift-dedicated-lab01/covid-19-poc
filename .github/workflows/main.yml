@@ -66,4 +66,13 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info'
+          'registry info > out1'
+          'registry info > /tmp/out2'
+
+    - name: test secret and var
+      env:
+        mysecret: ${{ secrets.mysecret1 }}
+      run: |
+        ls
+        ls /tmp
+        echo $mysecret | grep a
