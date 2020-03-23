@@ -42,7 +42,7 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info > openshift-registry'
+          'registry info > /tmp/openshift-registry'
           
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
@@ -50,17 +50,18 @@ jobs:
         # Artifact name
         name: openshift-registry
         # Directory containing files to upload
-        path: ./openshift-registry 
+        path: /tmp/openshift-registry 
 
     # Runs a single command using the runners shell
     - name: test commands
       run: |
         cat Dockerfile
         test=$(date)
-        echo $test
+        echo $test > /tmp/date
         cat openshift-registry
 
     - name: test commands2
       run: |
         echo $test
-        cat openshift-registry
+        cat /tmp/date
+        cat /tmp/openshift-registry
