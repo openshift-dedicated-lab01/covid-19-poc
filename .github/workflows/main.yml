@@ -65,7 +65,7 @@ jobs:
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
-          'oc version'
+          'version'
           'registry info > out1'
           'registry info > /tmp/out2'
 
