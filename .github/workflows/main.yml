@@ -60,7 +60,7 @@ jobs:
       
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
-      working-directory: $GITHUB_WORKSPACE
+      working-directory: ${{GITHUB_WORKSPACE}}
       with:
         version: 'latest'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
