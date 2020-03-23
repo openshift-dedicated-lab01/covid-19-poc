@@ -53,5 +53,5 @@ jobs:
     - name: Push the container image to the Openshift registry
       run: |
         'docker images'
-        #'docker login -u <random> -p $(oc whoami -t) $(oc registry info)'
-        #'docker push' 
+        '#docker login ...'
+        '#docker push' 
