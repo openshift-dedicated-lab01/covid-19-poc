@@ -60,12 +60,13 @@ jobs:
       
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
+      shell: bash
       with:
         version: 'latest'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
-          'version'
+          'oc version'
           'registry info > out1'
           'registry info > /tmp/out2'
 
