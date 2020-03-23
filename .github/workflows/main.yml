@@ -39,6 +39,7 @@ jobs:
       with:
         version: 'latest'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
-        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
+        parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
+          'registry info'
