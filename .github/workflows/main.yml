@@ -42,11 +42,13 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info > /tmp/openshift-registry'
+          'registry info > openshift-registry'
+          
 
     # Runs a single command using the runners shell
     - name: test commands
       run: |
-        cat /tmp/openshift-registry
+        cat Dockerfile
         test=$(date)
         echo $test
+        cat openshift-registry
