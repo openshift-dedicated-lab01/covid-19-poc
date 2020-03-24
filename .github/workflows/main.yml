@@ -57,4 +57,4 @@ jobs:
         cmd: |          
           'version'
           'registry info'
-          'registry project'
+          'project'
