@@ -38,8 +38,8 @@ jobs:
     - name: Build the container image
       env:
         registry: ${{ secrets.OPENSHIFT_REGISTRY }}
-        image_name: ${{GITHUB_REPOSITORY}}
-        image_tag: ${{$GITHUB_REF}}
+        image_name: $GITHUB_REPOSITORY
+        image_tag: $GITHUB_REF
       run: |
         docker build -t $registry/$image_name:$image_tag .
         
