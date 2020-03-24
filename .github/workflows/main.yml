@@ -41,7 +41,7 @@ jobs:
         image_name: ${{ github.repository }}
         image_tag: ${{ github.ref }}
       run: |
-        docker build -t $registry/$image_name:$image_tag .
+        docker build -t $registry/$image_name:${image_tag##*/} .
         
     - name: Push the container image to the Openshift registry
       run: |
