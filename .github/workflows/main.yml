@@ -38,25 +38,16 @@ jobs:
     - name: Build the container image
       env:
         registry: ${{ secrets.OPENSHIFT_REGISTRY }}
+        registry_password: ${{ secrets.OPENSHIFT_API_TOKEN }}
+        openshift_project: fl-project
         image_name: ${{ github.repository }}
         image_tag: ${{ github.ref }}
       run: |
-        docker build -t $registry/$image_name:${image_tag##*/} .
-        
-    - name: Push the container image to the Openshift registry
-      run: |
+        docker build -t $registry/$openshift_project/${$image_name##*/}:${image_tag##*/} .
         #docker login ...'
         #docker push'
         
-    - name: test secret and var
-      env:
-        mysecret: ${{ secrets.mysecret1 }}
-      run: |
-        pwd
-        echo $mysecret
-        echo $GITHUB_REF
-        echo $GITHUB_ACTOR
-      
+    # https://github.com/redhat-developer/openshift-actions/issues/13
     - name: OpenShift Action
       uses: redhat-developer/openshift-actions@v1.1
       with:
@@ -65,13 +56,5 @@ jobs:
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
         cmd: |          
           'version'
-          'registry info > out1'
-          'registry info > /tmp/out2'
-
-    - name: test secret and var
-      env:
-        mysecret: ${{ secrets.mysecret1 }}
-      run: |
-        ls
-        ls /tmp
-        echo $mysecret | grep a
+          'registry info'
+          'registry project'
