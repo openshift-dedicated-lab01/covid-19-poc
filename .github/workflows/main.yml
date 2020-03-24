@@ -43,7 +43,7 @@ jobs:
         image_name: ${{ github.repository }}
         image_tag: ${{ github.ref }}
       run: |
-        docker build -t $registry/$openshift_project/${$image_name##*/}:${image_tag##*/} .
+        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
         #docker login ...'
         #docker push'
         
