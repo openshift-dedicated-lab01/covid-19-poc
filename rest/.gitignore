@@ -1,5 +1,7 @@
 HELP.md
 bin/
+batch/C:/
+rest/C:/
 target/
 .mvn/
 !**/src/main/**
