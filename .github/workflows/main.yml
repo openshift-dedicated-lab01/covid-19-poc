@@ -32,20 +32,19 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
         
-    - uses: actions/checkout@v1
-
-
-          
+    - uses: actions/checkout@v1          
 
     # Runs a single command using the runners shell
     - name: Build the container image
+      env:
+        registry: ${{ secrets.OPENSHIFT_REGISTRY }}
+        image_name: ${{GITHUB_REPOSITORY}}
+        image_tag: ${{$GITHUB_REF}}
       run: |
-        docker build .
+        docker build -t $registry/$image_name:$image_tag .
         
     - name: Push the container image to the Openshift registry
       run: |
-        docker images
-
         #docker login ...'
         #docker push'
         
