@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.covid</groupId>
-	<artifactId>RestService</artifactId>
+	<artifactId>rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>RestService</name>
 	<description>REST Service - Application A</description>
