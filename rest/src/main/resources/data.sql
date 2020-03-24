@@ -26,20 +26,32 @@ CREATE TABLE statistics (
 
 CREATE TABLE confirmedByDay (
   confirmedByDayId INT NOT NULL AUTO_INCREMENT,
+  statisticsId INT NOT NULL,
   confirmedByDay INT,
-  CONSTRAINT confirmedByDay_pk PRIMARY KEY (confirmedByDayId)
+  CONSTRAINT confirmedByDay_pk PRIMARY KEY (confirmedByDayId),
+  FOREIGN KEY (statisticsId)
+        REFERENCES statistics(statisticsId)
+        ON DELETE CASCADE
 );
   
 CREATE TABLE recoveredByDay (
   recoveredByDayId INT NOT NULL AUTO_INCREMENT,
+  statisticsId INT NOT NULL,
   recoveredByDay INT,
   CONSTRAINT recoveredByDay_pk PRIMARY KEY (recoveredByDayId)
+  FOREIGN KEY (statisticsId)
+        REFERENCES statistics(statisticsId)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE deathsByDay (
   deathsByDayId INT NOT NULL AUTO_INCREMENT,
+  statisticsId INT NOT NULL,
   deathsByDay INT,
   CONSTRAINT deathsByDay_pk PRIMARY KEY (deathsByDayId)
+  FOREIGN KEY (statisticsId)
+        REFERENCES statistics(statisticsId)
+        ON DELETE CASCADE
 );
    
 INSERT INTO statistics (country, province, countryCode, confirmed, recovered, deaths, confirmedByDay, recoveredByDay, deathsByDay, lastUpdated, active, mortalityPer, recoveredPer) VALUES
