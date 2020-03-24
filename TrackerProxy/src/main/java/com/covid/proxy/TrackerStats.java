@@ -1,4 +1,4 @@
-package com.covid.TrackerProxy;
+package com.covid.proxy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
