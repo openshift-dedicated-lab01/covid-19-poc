@@ -1,25 +1,71 @@
-package com.covid.entity;
+package com.covid.rest.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * @author naultse 
  * Entité de statistiques.
  *
  */
-public class Statistics {
-	private String country; // Canada
-	private String province; // Québec
-	private String countryCode; // CA
+
+@Entity
+public class Statistic {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "country")
+	private String country;
+	
+	@Column(name = "province")
+	private String province;
+	
+	@Column(name = "country_code")
+	private String countryCode;
+	
+	@Column(name = "confirmed")
 	private String confirmed;
+	
+	@Column(name = "recovered")
 	private String recovered;
+	
+	@Column(name = "deaths")
 	private String deaths;
-	private int[] confirmedByDay;
-	private int[] recoveredByDay;
-	private int[] deathsByDay;
-	private String lastUpdated; // 2020-03-20T18:15:45.004949Z
+	
+//	@Column(name = "confirmed_by_day")
+//	private int[] confirmedByDay;
+//	
+//	@Column(name = "recovered_by_day")
+//	private int[] recoveredByDay;
+//	
+//	@Column(name = "deaths_by_day")
+//	private int[] deathsByDay;
+	
+	@Column(name = "last_updated")
+	private String lastUpdated;
+	
+	@Column(name = "active")
 	private String active;
+	
+	@Column(name = "mortality_per")
 	private String mortalityPer;
+	
+	@Column(name = "recovered_per")
 	private String recoveredPer;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getCountry() {
 		return country;
 	}
@@ -68,29 +114,29 @@ public class Statistics {
 		this.deaths = deaths;
 	}
 
-	public int[] getConfirmedByDay() {
-		return confirmedByDay;
-	}
-
-	public void setConfirmedByDay(int[] confirmedByDay) {
-		this.confirmedByDay = confirmedByDay;
-	}
-
-	public int[] getRecoveredByDay() {
-		return recoveredByDay;
-	}
-
-	public void setRecoveredByDay(int[] recoveredByDay) {
-		this.recoveredByDay = recoveredByDay;
-	}
-
-	public int[] getDeathsByDay() {
-		return deathsByDay;
-	}
-
-	public void setDeathsByDay(int[] deathsByDay) {
-		this.deathsByDay = deathsByDay;
-	}
+//	public int[] getConfirmedByDay() {
+//		return confirmedByDay;
+//	}
+//
+//	public void setConfirmedByDay(int[] confirmedByDay) {
+//		this.confirmedByDay = confirmedByDay;
+//	}
+//
+//	public int[] getRecoveredByDay() {
+//		return recoveredByDay;
+//	}
+//
+//	public void setRecoveredByDay(int[] recoveredByDay) {
+//		this.recoveredByDay = recoveredByDay;
+//	}
+//
+//	public int[] getDeathsByDay() {
+//		return deathsByDay;
+//	}
+//
+//	public void setDeathsByDay(int[] deathsByDay) {
+//		this.deathsByDay = deathsByDay;
+//	}
 
 	public String getLastUpdated() {
 		return lastUpdated;
