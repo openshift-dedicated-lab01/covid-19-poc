@@ -56,3 +56,12 @@ CREATE TABLE deathsByDay (
    
 INSERT INTO statistics (country, province, countryCode, confirmed, recovered, deaths, confirmedByDay, recoveredByDay, deathsByDay, lastUpdated, active, mortalityPer, recoveredPer) VALUES
   ('Canada', 'Québec', 'CA', '345','124','34',0,0,0,'2020-03-21','4','5','6');
+
+INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
+  ('Canada', 'Québec', 'CA', '345','124','34','2020-03-21','4','5','6');
+  
+INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
+  ('Canada', 'Manitoba', 'CA', '345','124','34','2020-03-21','4','5','6');
+  
+INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
+  ('Canada', 'Ontario', 'CA', '345','124','34','2020-03-21','4','5','6');

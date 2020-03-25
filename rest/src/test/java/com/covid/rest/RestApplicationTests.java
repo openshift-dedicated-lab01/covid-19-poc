@@ -1,10 +1,10 @@
-package com.covid.StatisticService;
+package com.covid.rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StatisticServiceApplicationTests {
+class RestApplicationTests {
 
 	@Test
 	void contextLoads() {
