@@ -15,6 +15,14 @@
 	<description>Covid-19 POC batch json proxy</description>
 
 	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.fasterxml.jackson.jaxrs</groupId> -->
+<!-- 			<artifactId>jackson-jaxrs-json-provider</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-webflux</artifactId> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 </project>
