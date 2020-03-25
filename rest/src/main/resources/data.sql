@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS statistics;
-DROP TABLE IF EXISTS statistic;
 DROP TABLE IF EXISTS confirmedByDay;
 DROP TABLE IF EXISTS recoveredByDay;
 DROP TABLE IF EXISTS deathsByDay;
+DROP TABLE IF EXISTS statistics;
+DROP TABLE IF EXISTS statistic;
  
  --https://corona-stats.online/?format=json
  
