@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * @author naultse 
@@ -20,6 +24,8 @@ public class Statistic {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ts")
     private Date ts;
 	
@@ -33,34 +39,25 @@ public class Statistic {
 	private String countryCode;
 	
 	@Column(name = "confirmed")
-	private String confirmed;
+	private Integer confirmed;
 	
 	@Column(name = "recovered")
-	private String recovered;
+	private Integer recovered;
 	
 	@Column(name = "deaths")
-	private String deaths;
-	
-//	@Column(name = "confirmed_by_day")
-//	private int[] confirmedByDay;
-//	
-//	@Column(name = "recovered_by_day")
-//	private int[] recoveredByDay;
-//	
-//	@Column(name = "deaths_by_day")
-//	private int[] deathsByDay;
+	private Integer deaths;
 	
 	@Column(name = "last_updated")
-	private String lastUpdated; // 2020-03-20T18:15:45.004949Z
+	private String lastUpdated;
 	
 	@Column(name = "active")
-	private String active;
+	private Integer active;
 	
 	@Column(name = "mortality_per")
-	private String mortalityPer;
+	private Integer mortalityPer;
 	
 	@Column(name = "recovered_per")
-	private String recoveredPer;
+	private Integer recoveredPer;
 
 	protected Statistic() {}
 	
@@ -104,53 +101,29 @@ public class Statistic {
 		this.countryCode = countryCode;
 	}
 
-	public String getConfirmed() {
+	public Integer getConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(String confirmed) {
+	public void setConfirmed(Integer confirmed) {
 		this.confirmed = confirmed;
 	}
 
-	public String getRecovered() {
+	public Integer getRecovered() {
 		return recovered;
 	}
 
-	public void setRecovered(String recovered) {
+	public void setRecovered(Integer recovered) {
 		this.recovered = recovered;
 	}
 
-	public String getDeaths() {
+	public Integer getDeaths() {
 		return deaths;
 	}
 
-	public void setDeaths(String deaths) {
+	public void setDeaths(Integer deaths) {
 		this.deaths = deaths;
 	}
-
-//	public int[] getConfirmedByDay() {
-//		return confirmedByDay;
-//	}
-//
-//	public void setConfirmedByDay(int[] confirmedByDay) {
-//		this.confirmedByDay = confirmedByDay;
-//	}
-//
-//	public int[] getRecoveredByDay() {
-//		return recoveredByDay;
-//	}
-//
-//	public void setRecoveredByDay(int[] recoveredByDay) {
-//		this.recoveredByDay = recoveredByDay;
-//	}
-//
-//	public int[] getDeathsByDay() {
-//		return deathsByDay;
-//	}
-//
-//	public void setDeathsByDay(int[] deathsByDay) {
-//		this.deathsByDay = deathsByDay;
-//	}
 
 	public String getLastUpdated() {
 		return lastUpdated;
@@ -160,27 +133,27 @@ public class Statistic {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public String getActive() {
+	public Integer getActive() {
 		return active;
 	}
 
-	public void setActive(String active) {
+	public void setActive(Integer active) {
 		this.active = active;
 	}
 
-	public String getMortalityPer() {
+	public Integer getMortalityPer() {
 		return mortalityPer;
 	}
 
-	public void setMortalityPer(String mortalityPer) {
+	public void setMortalityPer(Integer mortalityPer) {
 		this.mortalityPer = mortalityPer;
 	}
 
-	public String getRecoveredPer() {
+	public Integer getRecoveredPer() {
 		return recoveredPer;
 	}
 
-	public void setRecoveredPer(String recoveredPer) {
+	public void setRecoveredPer(Integer recoveredPer) {
 		this.recoveredPer = recoveredPer;
 	}
 }

@@ -14,9 +14,29 @@ public class StatisticController {
 	
 	@Autowired
 	private StatisticRepository statisticRepository;
-
-	@GetMapping(path = "/statistics")
-	public List<Statistic> retrieveAllStatistics(){
-		return statisticRepository.findAll();
+	
+	@GetMapping(path = "/stats/confirmed/canada/smallest")
+	public List<Statistic> retrieveSmallestCanadianConfirmed(){
+		Integer confirmedValue = statisticRepository.getMinConfirmedByCountry("Canada");
+		return statisticRepository.findByConfirmedCanada(confirmedValue);
 	}
+	
+	@GetMapping(path = "/stats/confirmed/canada/biggest")
+	public List<Statistic> retrieveBiggestCanadianConfirmed(){
+		Integer confirmedValue = statisticRepository.getMaxConfirmedByCountry("Canada");
+		return statisticRepository.findByConfirmedCanada(confirmedValue);
+	}
+	
+	@GetMapping(path = "/stats/deaths/canada/smallest")
+	public List<Statistic> retrieveSmallestCanadianDeaths(){
+		Integer deathsValue = statisticRepository.getMinDeathsByCountry("Canada");
+		return statisticRepository.findByDeathsCanada(deathsValue);
+	}
+	
+	@GetMapping(path = "/stats/deaths/canada/biggest")
+	public List<Statistic> retrieveBiggestCanadianDeaths(){
+		Integer deathsValue = statisticRepository.getMaxDeathsByCountry("Canada");
+		return statisticRepository.findByDeathsCanada(deathsValue);
+	}
+
 }

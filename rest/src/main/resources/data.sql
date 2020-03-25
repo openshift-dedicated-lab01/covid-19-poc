@@ -66,11 +66,17 @@
 --  ('Canada', 'Québec', 'CA', '345','124','34',0,0,0,'2020-03-21','4','5','6');
 
 INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
-  ('Canada', 'Québec', 'CA', '345','124','34','2020-03-21','4','5','6');
+  ('Canada', 'Québec', 'CA', '234','124','12','2020-03-21','4','5','6');
   
 INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
-  ('Canada', 'Manitoba', 'CA', '345','124','34','2020-03-21','4','5','6');
+  ('Canada', 'Manitoba', 'CA', '345','12','1','2020-03-21','4','5','6');
   
 INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
-  ('Canada', 'Ontario', 'CA', '345','124','34','2020-03-21','4','5','6');
+  ('Canada', 'Ontario', 'CA', '123','345','54','2020-03-21','4','5','6');
+  
+INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
+  ('Canada', 'Nova Scotia', 'CA', '87','83','2','2020-03-21','4','5','6');
+  
+INSERT INTO statistic (country, province, country_code, confirmed, recovered, deaths, last_updated, active, mortality_per, recovered_per) VALUES
+  ('Canada', 'New Brunswick', 'CA', '456','123','7','2020-03-21','4','5','6');
   
