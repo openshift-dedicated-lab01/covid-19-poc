@@ -1,7 +1,8 @@
 Liens vers les templates BD Openshift : 
 https://github.com/openshift/origin/tree/master/examples/db-templates
 
-Créer une nouvelle application, en applicant le template : 
+Créer une nouvelle application, en applicant le template :
+
 `oc new-app -f template-mysql-persistent.json`
 
 Output : 
@@ -44,7 +45,8 @@ Output :
      'oc expose svc/mysql'
     Run 'oc status' to view your app.
 ```
-Lister les ressources d'un projet
+Lister les ressources d'un projet : 
+
 `oc get all -o name`
 
 Output : 
@@ -57,5 +59,6 @@ deploymentconfig.apps.openshift.io/mysql
 ```
 
 Se connecter au container : 
+
 `oc rsh pod/mysql-1-n26pf`
 
