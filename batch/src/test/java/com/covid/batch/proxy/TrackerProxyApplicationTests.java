@@ -1,10 +1,10 @@
-package com.covid.StatisticService;
+package com.covid.batch.proxy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StatisticServiceApplicationTests {
+class TrackerProxyApplicationTests {
 
 	@Test
 	void contextLoads() {
