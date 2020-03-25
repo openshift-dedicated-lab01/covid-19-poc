@@ -1,30 +1,45 @@
 package com.covid.batch.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
 
 /**
- * @author naultse Les types de cet objet portent exactement le même nom que les
- *         clés json afin qu'ils soient directement bindés par le template
- *         helper.
+ * @author naultse 
+ * Entité de statistiques.
  *
  */
-// indicates that any properties not bound in this type should be ignored.
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class TrackerStats {
-	private String country; // Canada
-	private String province; // Québec
-	private String countryCode; // CA
+public class Statistic {
+
+	private long id;
+    private Date ts;
+	private String country;
+	private String province;
+	private String countryCode;
 	private String confirmed;
 	private String recovered;
 	private String deaths;
-	private int[] confirmedByDay;
-	private int[] recoveredByDay;
-	private int[] deathsByDay;
 	private String lastUpdated; // 2020-03-20T18:15:45.004949Z
 	private String active;
 	private String mortalityPer;
 	private String recoveredPer;
 
+	protected Statistic() {}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getTs() {
+		return ts;
+	}
+
+	public void setTs(Date ts) {
+		this.ts = ts;
+	}
+		
 	public String getCountry() {
 		return country;
 	}
@@ -71,30 +86,6 @@ public class TrackerStats {
 
 	public void setDeaths(String deaths) {
 		this.deaths = deaths;
-	}
-
-	public int[] getConfirmedByDay() {
-		return confirmedByDay;
-	}
-
-	public void setConfirmedByDay(int[] confirmedByDay) {
-		this.confirmedByDay = confirmedByDay;
-	}
-
-	public int[] getRecoveredByDay() {
-		return recoveredByDay;
-	}
-
-	public void setRecoveredByDay(int[] recoveredByDay) {
-		this.recoveredByDay = recoveredByDay;
-	}
-
-	public int[] getDeathsByDay() {
-		return deathsByDay;
-	}
-
-	public void setDeathsByDay(int[] deathsByDay) {
-		this.deathsByDay = deathsByDay;
 	}
 
 	public String getLastUpdated() {
