@@ -28,5 +28,11 @@ public interface StatisticRepository extends JpaRepository<Statistic, Integer>{
 	
 	@Query("SELECT u FROM Statistic u WHERE u.deaths = ?1 AND u.country = ?2")
 	List<Statistic> findByDeaths(Integer deaths, String country);
+	
+	@Query("SELECT SUM(confirmed) FROM Statistic")
+	int getSumConfirmed();
+	
+	@Query("SELECT SUM(deaths) FROM Statistic")
+	int getSumDeaths();
 
 }

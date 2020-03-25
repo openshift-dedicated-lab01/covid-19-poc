@@ -20,6 +20,16 @@ public class StatisticController {
 	@Autowired
 	private StatisticRepository statisticRepository;
 	
+	@GetMapping(path = "/stats/confirmed")
+	public int getWorldConfirmed() {
+		return statisticRepository.getSumConfirmed();
+	}
+	
+	@GetMapping(path = "/stats/deaths")
+	public int getWorldDeaths() {
+		return statisticRepository.getSumDeaths();
+	}
+	
 	@GetMapping(path = "/stats/confirmed/canada/smallest")
 	public List<Statistic> retrieveSmallestCanadianConfirmed(){
 		Integer confirmedValue = statisticRepository.getMinConfirmedByCountry("Canada");
