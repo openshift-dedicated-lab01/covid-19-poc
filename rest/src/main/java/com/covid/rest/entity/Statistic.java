@@ -41,23 +41,14 @@ public class Statistic {
 	@Column(name = "confirmed")
 	private Integer confirmed;
 	
-	@Column(name = "recovered")
-	private Integer recovered;
-	
 	@Column(name = "deaths")
 	private Integer deaths;
 	
 	@Column(name = "last_updated")
 	private String lastUpdated;
 	
-	@Column(name = "active")
-	private Integer active;
-	
 	@Column(name = "mortality_per")
-	private Integer mortalityPer;
-	
-	@Column(name = "recovered_per")
-	private Integer recoveredPer;
+	private Double mortalityPer;
 
 	protected Statistic() {}
 	
@@ -109,14 +100,6 @@ public class Statistic {
 		this.confirmed = confirmed;
 	}
 
-	public Integer getRecovered() {
-		return recovered;
-	}
-
-	public void setRecovered(Integer recovered) {
-		this.recovered = recovered;
-	}
-
 	public Integer getDeaths() {
 		return deaths;
 	}
@@ -133,27 +116,11 @@ public class Statistic {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public Integer getActive() {
-		return active;
-	}
-
-	public void setActive(Integer active) {
-		this.active = active;
-	}
-
-	public Integer getMortalityPer() {
+	public Double getMortalityPer() {
 		return mortalityPer;
 	}
 
-	public void setMortalityPer(Integer mortalityPer) {
+	public void setMortalityPer(Double mortalityPer) {
 		this.mortalityPer = mortalityPer;
-	}
-
-	public Integer getRecoveredPer() {
-		return recoveredPer;
-	}
-
-	public void setRecoveredPer(Integer recoveredPer) {
-		this.recoveredPer = recoveredPer;
 	}
 }

@@ -23,10 +23,10 @@ public interface StatisticRepository extends JpaRepository<Statistic, Integer>{
 	@Query("SELECT MAX(deaths) FROM Statistic WHERE country = ?1")
 	Integer getMaxDeathsByCountry(String country);
 	
-	@Query("SELECT u FROM Statistic u WHERE u.confirmed = ?1")
-	List<Statistic> findByConfirmedCanada(Integer confirmed);
+	@Query("SELECT u FROM Statistic u WHERE u.confirmed = ?1 AND u.country = ?2")
+	List<Statistic> findByConfirmed(Integer confirmed, String country);
 	
-	@Query("SELECT u FROM Statistic u WHERE u.deaths = ?1")
-	List<Statistic> findByDeathsCanada(Integer deaths);
+	@Query("SELECT u FROM Statistic u WHERE u.deaths = ?1 AND u.country = ?2")
+	List<Statistic> findByDeaths(Integer deaths, String country);
 
 }
