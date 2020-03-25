@@ -19,7 +19,9 @@ public class Statistic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private Date ts;
+
+	@Column(name = "ts")
+    private Date ts;
 	
 	@Column(name = "country")
 	private String country;
