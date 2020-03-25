@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS deathsByDay;
  --https://corona-stats.online/?format=json
  
 CREATE TABLE statistics (
-  statisticsId INT NOT NULL AUTO_INCREMENT,
+  statisticsId BIGINT NOT NULL AUTO_INCREMENT,
   ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
   country VARCHAR(50) DEFAULT NULL,
   province VARCHAR(50) DEFAULT NULL,
@@ -25,9 +25,9 @@ CREATE TABLE statistics (
 );
 
 CREATE TABLE confirmedByDay (
-  confirmedByDayId INT NOT NULL AUTO_INCREMENT,
-  statisticsId INT NOT NULL,
-  confirmedByDay INT,
+  confirmedByDayId BIGINT NOT NULL AUTO_INCREMENT,
+  statisticsId BIGINT NOT NULL,
+  confirmedByDay BIGINT,
   CONSTRAINT confirmedByDay_pk PRIMARY KEY (confirmedByDayId),
   FOREIGN KEY (statisticsId)
         REFERENCES statistics(statisticsId)
@@ -35,8 +35,8 @@ CREATE TABLE confirmedByDay (
 );
   
 CREATE TABLE recoveredByDay (
-  recoveredByDayId INT NOT NULL AUTO_INCREMENT,
-  statisticsId INT NOT NULL,
+  recoveredByDayId BIGINT NOT NULL AUTO_INCREMENT,
+  statisticsId BIGINT NOT NULL,
   recoveredByDay INT,
   CONSTRAINT recoveredByDay_pk PRIMARY KEY (recoveredByDayId)
   FOREIGN KEY (statisticsId)
@@ -45,8 +45,8 @@ CREATE TABLE recoveredByDay (
 );
 
 CREATE TABLE deathsByDay (
-  deathsByDayId INT NOT NULL AUTO_INCREMENT,
-  statisticsId INT NOT NULL,
+  deathsByDayId BIGINT NOT NULL AUTO_INCREMENT,
+  statisticsId BIGINT NOT NULL,
   deathsByDay INT,
   CONSTRAINT deathsByDay_pk PRIMARY KEY (deathsByDayId)
   FOREIGN KEY (statisticsId)

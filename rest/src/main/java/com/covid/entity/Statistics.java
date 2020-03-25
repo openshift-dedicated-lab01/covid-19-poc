@@ -1,11 +1,23 @@
 package com.covid.entity;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * @author naultse 
  * Entité de statistiques.
  *
  */
+@Entity
 public class Statistics {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long statisticsId;
+	private Date ts;
 	private String country; // Canada
 	private String province; // Québec
 	private String countryCode; // CA
@@ -20,6 +32,24 @@ public class Statistics {
 	private String mortalityPer;
 	private String recoveredPer;
 
+	protected Statistics() {}
+
+	public long getStatisticsId() {
+		return statisticsId;
+	}
+
+	public void setStatisticsId(long statisticsId) {
+		this.statisticsId = statisticsId;
+	}
+
+	public Date getTs() {
+		return ts;
+	}
+
+	public void setTs(Date ts) {
+		this.ts = ts;
+	}
+	
 	public String getCountry() {
 		return country;
 	}
@@ -123,4 +153,5 @@ public class Statistics {
 	public void setRecoveredPer(String recoveredPer) {
 		this.recoveredPer = recoveredPer;
 	}
+
 }
