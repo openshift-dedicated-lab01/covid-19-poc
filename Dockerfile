@@ -1,3 +1,4 @@
+
 FROM openjdk:8-jdk-alpine
 # Ce contenaire charge les jar files de l'application rest et l'application batch
 # $JAR_FILE est un variable d'environnement qui permettra de choisir quelle application
