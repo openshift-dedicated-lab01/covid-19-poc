@@ -1,17 +1,25 @@
 package com.covid.batch.proxy;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.covid.batch.entity.Statistic;
 import com.covid.batch.entity.TrackerStats;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -20,77 +28,76 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class TrackerProxyApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(TrackerProxyApplication.class);
-	
+	private static final String DEFAULT_COVID_INPUT_URL = "https://localhost/?source=1&format=json";
+	private static final String DEFAULT_COVID_OUTPUT_URL = "http://localhost/statistic";
+	private static final String INPUT_URL_PROPERTY_NAME = "covid.input.url";
+	private static final String OUTPUT_URL_PROPERTY_NAME = "covid.output.url";
+
+	@Autowired
+	private Environment env;
+
 	public static void main(String[] args) {
-		SpringApplication.run(TrackerProxyApplication.class, args);
+		log.debug("Arguments pass to main");
+		for (String arg : args) {
+			log.debug(arg);
+		}
+		log.debug("End arguments pass to main");
+
+		SpringApplication.run(TrackerProxyApplication.class, args).close();
 	}
-	
-	// Quelques exemples @link https://programmerbruce.blogspot.com/2011/05/deserialize-json-with-jackson-into.html
-	
+
+	// Quelques exemples @link
+	// https://programmerbruce.blogspot.com/2011/05/deserialize-json-with-jackson-into.html
+	// https://dzone.com/articles/configuring-a-custom-objectmapper-for-spring-restt
+	// https://www.boraji.com/jackson-api-converting-pojos-to-json-example
+	// https://www.baeldung.com/rest-template
+
 	@Bean
-	public CommandLineRunner run() throws Exception {
+	public CommandLineRunner run(ApplicationArguments appArgs) throws Exception {
 		return args -> {
-		    // Create ObjectMapper
-		    ObjectMapper mapper = new ObjectMapper();
-		    mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//		    mapper.getDeserializationConfig().addMixInAnnotations(
-//		    		TrackerStats.class, RemoteStatistic.class);
-//			mapper.getSerializationConfig().addMixInAnnotations(
-//					TrackerStats.class, Statistic.class);
-		    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		    converter.setObjectMapper(mapper);		    
-		    URI uri = new URI("https://corona-stats.online/?source=1&format=json");
+			// Retreives input url from environment properties. Default provided.
+			String covidInputUrl = env.getProperty(INPUT_URL_PROPERTY_NAME, DEFAULT_COVID_INPUT_URL);
+			String covidOutputUrl = env.getProperty(OUTPUT_URL_PROPERTY_NAME, DEFAULT_COVID_OUTPUT_URL);
 
-		    try {
-		    RestTemplate restTemplate = new RestTemplate();
-		    restTemplate.getMessageConverters().add(0,converter);
-			TrackerStats[] trackerStats = restTemplate.getForObject(uri, TrackerStats[].class);
-		    }catch(RestClientException rce) {
-		    	log.error(rce.getMessage());
-		    }
-			
-			// Send resulting object to persistance component Application A rest
+			log.info("Requested covid input provider url : " + covidInputUrl);
+			URI uri = new URI(covidInputUrl);
+			log.info("Requested covid output url : " + covidOutputUrl);
 
-			// Convert object to JSON string - sérialisation
-	//	      String json = mapper.writeValueAsString(trackerStats);			
-//			log.debug(json.toString() );
-			
+			try {
+				// OjectMapper defines how the rest payload will be converted
+				// it this case, the payload is json to be mapped to an object.
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+//			    mapper.getDeserializationConfig().addMixInAnnotations(
+//			    		TrackerStats.class, RemoteStatistic.class);
+//				mapper.getSerializationConfig().addMixInAnnotations(
+//						TrackerStats.class, Statistic.class);
+
+				MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+				converter.setObjectMapper(mapper);
+
+				RestTemplate restTemplate = new RestTemplate();
+				restTemplate.getMessageConverters().add(0, converter);
+				TrackerStats[] trackerStats = restTemplate.getForObject(uri, TrackerStats[].class);
+
+				log.debug("Response array size: " + trackerStats.length);
+
+				List<Statistic> arrayStatistics = new ArrayList<Statistic>();
+				for (TrackerStats originStats : trackerStats) {
+					arrayStatistics.add(originStats.toStatistic());
+				}
+				// Send throught REST resulting object to persistance component Application A
+				// log.debug(mapper.writeValueAsString(trackerStats).toString());
+
+				HttpEntity<Statistic[]> requestUpdate = new HttpEntity<Statistic[]>(
+						arrayStatistics.toArray(new Statistic[arrayStatistics.size()]));
+				restTemplate.exchange(covidOutputUrl, HttpMethod.PUT, requestUpdate, Void.class);
+
+			} catch (RestClientException rce) {
+				log.error(rce.getMessage());
+			}
+
 		};
 	}
 }
-
-// SVP ignorer le code ci-dessous, ce sont des librairies que j'expérimente
-
-//Playgin with Jackson ObjectMapper...
-//TrackerStats[] trackerStats = mapper.readValue(url, TrackerStats[].class);
-
-//Playing with RestTemplate...
-//restTemplate example 2
-//RestTemplate restTemplate = new RestTemplate();
-//ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-//Playing with WebClient...
-//WebClient example 1  (non-blocking)
-//WebClient webClient = WebClient.create("https://corona-stats.online/?source=1&format=json");
-//  Mono<String> result = webClient.get()
-//                                 .retrieve()
-//                                 .bodyToMono(String.class);
-//  String response = result.block();
-//  log.info(response);
-//WebClient webClient = WebClient.create("https://corona-stats.online/?source=1&format=json");
-//TrackerStats[] response = webClient.get(TrackerStats[].class);
-		
-//		.accept(MediaType.APPLICATION_JSON)
-//        .get(TrackerStats[].class);
-//
-//WebClient example 2
-//WebClient client = WebClient
-//		  .builder()
-//		    .baseUrl("https://corona-stats.online")
-//		    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE) 
-//		  .build();
-//
-//Mono<TrackerStats[]> flux = client.get()
-//		.uri("/?source=1&format=json")
-//		.retrieve()
-//		.bodyToMono(TrackerStats[].class);

@@ -128,4 +128,32 @@ public class TrackerStats {
 	public void setRecoveredPer(String recoveredPer) {
 		this.recoveredPer = recoveredPer;
 	}
+	
+	/**
+	 * Factory pour la classe Statistic.  Basé sur le curl exemple.
+	 * 
+	 * curl --location --request POST 'localhost:8080/stats/entry' \
+     *      --header 'Content-Type: application/json' \
+     *      --data-raw '{
+	 *          "country":"Canada",
+     *      	"province":"Ontario",
+     *      	"countryCode":"CA",
+     *      	"confirmed":"123",
+     *      	"deaths":"54",
+     *      	"lastUpdated":"2020-03-21",
+     *      	"mortalityPer":"5.1"
+     *      }'
+	 * @return Statistic
+	 */
+	public Statistic toStatistic() {
+		Statistic statistic = new Statistic();
+		statistic.setCountry(country);
+		statistic.setProvince(province);
+		statistic.setCountryCode(countryCode);
+		statistic.setConfirmed(confirmed);
+		statistic.setDeaths(deaths);
+		statistic.setLastUpdated(lastUpdated);
+		statistic.setMortalityPer(mortalityPer);
+		return statistic; 
+	}
 }
