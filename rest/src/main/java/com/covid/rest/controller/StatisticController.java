@@ -90,5 +90,32 @@ public class StatisticController {
 		
 		return ResponseEntity.created(location).build();
 	}
+	
+	@PostMapping(path = "/stats/update")
+	public void updateEntry(@RequestBody Statistic statistic) {
+		
+		// Get all the parameters from the response
+		String country = statistic.getCountry();
+		String province = statistic.getProvince();
+		Integer confirmed = statistic.getConfirmed();
+		Integer deaths = statistic.getDeaths();
+		Double mortalityPer = statistic.getMortalityPer();
+		String lastUpdated = statistic.getLastUpdated();
+		
+		// Check DB to find if response exists
+		Statistic statisticInDB = statisticRepository.findByCountryAndProvince(country, province);
+		
+		// If the entry exists in the DB, update it
+		if(statisticInDB != null) {
+			statisticInDB.setConfirmed(confirmed);
+			statisticInDB.setDeaths(deaths);
+			statisticInDB.setMortalityPer(mortalityPer);
+			statisticInDB.setLastUpdated(lastUpdated);
+			
+			// Save the newly updated entry
+			statisticRepository.save(statisticInDB);
+		}
+		
+	}
 
 }
