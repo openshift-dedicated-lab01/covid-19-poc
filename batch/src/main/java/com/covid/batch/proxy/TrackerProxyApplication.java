@@ -1,8 +1,6 @@
 package com.covid.batch.proxy;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +26,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class TrackerProxyApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(TrackerProxyApplication.class);
-	private static final String DEFAULT_COVID_INPUT_URL = "https://localhost/?source=1&format=json";
-	private static final String DEFAULT_COVID_OUTPUT_URL = "http://localhost/statistic";
+	private static final String DEFAULT_COVID_INPUT_URL = "https://localhost:8800/?source=1&format=json";
+	private static final String DEFAULT_COVID_OUTPUT_URL = "http://localhost:8080/statistic";
 	private static final String INPUT_URL_PROPERTY_NAME = "covid.input.url";
 	private static final String OUTPUT_URL_PROPERTY_NAME = "covid.output.url";
 
@@ -80,19 +78,15 @@ public class TrackerProxyApplication {
 				RestTemplate restTemplate = new RestTemplate();
 				restTemplate.getMessageConverters().add(0, converter);
 				TrackerStats[] trackerStats = restTemplate.getForObject(uri, TrackerStats[].class);
-
+				log.debug(mapper.writeValueAsString(trackerStats).toString());
 				log.debug("Response array size: " + trackerStats.length);
 
-				List<Statistic> arrayStatistics = new ArrayList<Statistic>();
-				for (TrackerStats originStats : trackerStats) {
-					arrayStatistics.add(originStats.toStatistic());
-				}
 				// Send throught REST resulting object to persistance component Application A
-				// log.debug(mapper.writeValueAsString(trackerStats).toString());
-
-				HttpEntity<Statistic[]> requestUpdate = new HttpEntity<Statistic[]>(
-						arrayStatistics.toArray(new Statistic[arrayStatistics.size()]));
-				restTemplate.exchange(covidOutputUrl, HttpMethod.PUT, requestUpdate, Void.class);
+				HttpEntity<Statistic> requestUpdate;
+				for (TrackerStats originStats : trackerStats) {
+					requestUpdate = new HttpEntity<Statistic>(originStats.toStatistic());
+					restTemplate.exchange(covidOutputUrl, HttpMethod.PUT, requestUpdate, Void.class);
+				}
 
 			} catch (RestClientException rce) {
 				log.error(rce.getMessage());

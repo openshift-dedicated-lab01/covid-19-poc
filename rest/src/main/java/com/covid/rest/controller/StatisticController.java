@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -91,7 +92,7 @@ public class StatisticController {
 		return ResponseEntity.created(location).build();
 	}
 	
-	@PostMapping(path = "/stats/update")
+	@PutMapping(path = "/stats/update")
 	public void updateEntry(@RequestBody Statistic statistic) {
 		
 		// Get all the parameters from the response
