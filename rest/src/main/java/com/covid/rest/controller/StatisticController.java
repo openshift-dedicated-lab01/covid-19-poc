@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,32 @@ public class StatisticController {
 	@GetMapping(path = "/stats/deaths")
 	public int getWorldDeaths() {
 		return statisticRepository.getSumDeaths();
+	}
+	
+	@GetMapping(path = "/stats/confirmed/ratio/{country}")
+	public double getConfirmedRatiobyCountry(@PathVariable String country) {
+		double countrySum = statisticRepository.getSumConfirmedbyCountry(country); 
+		double totalSum = statisticRepository.getSumConfirmed();
+		
+		return (countrySum / totalSum);
+	}
+	
+	@GetMapping(path = "/stats/deaths/ratio/{country}")
+	public double getDeathsRatiobyCountry(@PathVariable String country) {
+		double countrySum = statisticRepository.getSumDeathsbyCountry(country); 
+		double totalSum = statisticRepository.getSumDeaths();
+		
+		return (countrySum / totalSum);
+	}
+	
+	@GetMapping(path = "/stats/confirmed/no-china")
+	public int getWorldConfirmedExcludingChina() {
+		return statisticRepository.getSumConfirmed() - statisticRepository.getSumConfirmedbyCountry("China");
+	}
+	
+	@GetMapping(path = "/stats/deaths/no-china")
+	public int getWorldDeathsExcludingChina() {
+		return statisticRepository.getSumDeaths() - statisticRepository.getSumDeathsbyCountry("China");
 	}
 	
 	@GetMapping(path = "/stats/confirmed/canada/smallest")
