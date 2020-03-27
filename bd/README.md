@@ -122,3 +122,25 @@ mysql> show tables;
 
 mysql>
 ```
+
+Exemple de création d'un pod avec le template "template-pod-env.yaml", qui va utiliser les secrets du namespace : 
+
+`oc create -f template-pod-env.yaml`
+
+Le template crée un pod, et va chercher deux valeurs (database-user et database-password) dans le secret "mysql" du namespace. Il met ses valeurs dans des variables d'environnements. Il liste ses variables avant de se terminer. 
+
+Il est possible de voir le log du pod dans la console d'admin : 
+
+``` bash
+...
+KUBERNETES_PORT_443_TCP_ADDR=172.30.0.1
+MYSQL_PASSWORD=------------ 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+MYSQL_USER=userOBB
+KUBERNETES_PORT_443_TCP=tcp://172.30.0.1:443
+...
+```
+
+Dans cet exemple, le pod a bien été chercher les valeurs dans les secrets et les a mis dans les variables MYSQL_USER et MYSQL_PASSWORD.
