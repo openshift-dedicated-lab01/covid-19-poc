@@ -8,6 +8,9 @@ https://blog.openshift.com/installing-oc-tools-windows/
 Liens vers les templates BD Openshift : 
 https://github.com/openshift/origin/tree/master/examples/db-templates
 
+Se loguer avec l'api oauth app token
+oc login --token=<oauth token> --server=https://<os app url>:6443
+
 == MySQL Template ==
 
 Créer une nouvelle application, en applicant le template :
