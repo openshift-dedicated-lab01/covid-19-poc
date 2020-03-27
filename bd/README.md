@@ -61,7 +61,7 @@ Lister les ressources d'un projet :
 
 `oc get all -o name`
 
-Output : 
+Output (Exemple) : 
 ``` bash
 pod/mysql-1-deploy
 pod/mysql-1-n26pf
@@ -74,3 +74,51 @@ Se connecter au container :
 
 `oc rsh pod/mysql-1-n26pf`
 
+Une fois dans le container, vérifier le mot de passe de la BD et se connecter à MySQL :
+``` bash
+sh-4.2$ env | grep MYSQL_PASS
+MYSQL_PASSWORD=-----------
+sh-4.2$ mysql -u $MYSQL_USER -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14406
+Server version: 5.7.24 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+Une fois connecté à la BD, exécuter quelques commandes tests :
+``` bash 
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| sampledb           |
++--------------------+
+2 rows in set (0.01 sec)
+
+mysql> use sampledb;
+Database changed
+mysql> CREATE TABLE animaux (name VARCHAR(20), owner VARCHAR(20),
+    ->        species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_sampledb |
++--------------------+
+| animaux            |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql>
+```
