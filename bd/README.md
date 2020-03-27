@@ -1,5 +1,14 @@
+== Prérequis ==
+Downloader le OpenShift CLI - descendre au bas de la page
+https://github.com/openshift/origin/releases/
+
+Installer le OpenShift CLI pour Windows
+https://blog.openshift.com/installing-oc-tools-windows/
+
 Liens vers les templates BD Openshift : 
 https://github.com/openshift/origin/tree/master/examples/db-templates
+
+== MySQL Template ==
 
 Créer une nouvelle application, en applicant le template :
 
