@@ -4,6 +4,7 @@ public class Test {
 
 	// SVP ignorer le code ci-dessous, ce sont des librairies que j'expérimente
 
+	//https://www.baeldung.com/spring-5-webclient
 	//Playgin with Jackson ObjectMapper...
 	//TrackerStats[] trackerStats = mapper.readValue(url, TrackerStats[].class);
 

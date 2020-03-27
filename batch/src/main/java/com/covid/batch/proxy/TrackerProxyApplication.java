@@ -67,6 +67,7 @@ public class TrackerProxyApplication {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
+				//https://github.com/FasterXML/jackson-docs/wiki/JacksonMixInAnnotations
 //			    mapper.getDeserializationConfig().addMixInAnnotations(
 //			    		TrackerStats.class, RemoteStatistic.class);
 //				mapper.getSerializationConfig().addMixInAnnotations(
