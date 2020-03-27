@@ -1,5 +1,5 @@
 name: CI
-
+#https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables
 on:
   push:
   #  branches: [ master ]
