@@ -123,4 +123,8 @@ public class Statistic {
 	public void setMortalityPer(Double mortalityPer) {
 		this.mortalityPer = mortalityPer;
 	}
+	
+	public static Statistic getInstance() {
+		return new Statistic();
+	}
 }

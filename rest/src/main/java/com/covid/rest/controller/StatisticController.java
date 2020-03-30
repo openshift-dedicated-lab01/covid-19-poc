@@ -107,16 +107,16 @@ public class StatisticController {
 		Statistic statisticInDB = statisticRepository.findByCountryAndProvince(country, province);
 		
 		// If the entry exists in the DB, update it
-		if(statisticInDB != null) {
-			statisticInDB.setConfirmed(confirmed);
-			statisticInDB.setDeaths(deaths);
-			statisticInDB.setMortalityPer(mortalityPer);
-			statisticInDB.setLastUpdated(lastUpdated);
+		if( statisticInDB == null)
+			statisticInDB = Statistic.getInstance();
+
+		statisticInDB.setConfirmed(confirmed);
+		statisticInDB.setDeaths(deaths);
+		statisticInDB.setMortalityPer(mortalityPer);
+		statisticInDB.setLastUpdated(lastUpdated);
 			
-			// Save the newly updated entry
-			statisticRepository.save(statisticInDB);
-		}
-		
+		// Save the newly updated entry
+		statisticRepository.save(statisticInDB);
 	}
 
 }
