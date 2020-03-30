@@ -69,221 +69,221 @@
                 accessModes: [
                     "ReadWriteOnce"
                 ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
+                resources: {
+                    requests: {
+                        storage: "${VOLUME_CAPACITY}"
                     }
                 }
             }
         },
         {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "annotations": {
-                    "template.alpha.openshift.io/wait-for-ready": "true"
+            apiVersion: "v1",
+            kind: "DeploymentConfig",
+            metadata: {
+                annotations: {
+                    template.alpha.openshift.io/wait-for-ready: "true"
                 },
-                "name": "${DATABASE_SERVICE_NAME}"
+                name: "${DATABASE_SERVICE_NAME}"
             },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
+            spec: {
+                replicas: 1,
+                selector: {
+                    name: "${DATABASE_SERVICE_NAME}"
                 },
-                "strategy": {
-                    "type": "Recreate"
+                strategy: {
+                    type: "Recreate"
                 },
-                "template": {
-                    "metadata": {
-                        "labels": {
-                            "name": "${DATABASE_SERVICE_NAME}"
+                template: {
+                    metadata: {
+                        labels: {
+                            name: "${DATABASE_SERVICE_NAME}"
                         }
                     },
-                    "spec": {
-                        "containers": [
+                    spec: {
+                        containers: [
                             {
-                                "env": [
+                                env: [
                                     {
-                                        "name": "MYSQL_USER",
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "database-user",
-                                                "name": "${DATABASE_SERVICE_NAME}"
+                                        name: "MYSQL_USER",
+                                        valueFrom: {
+                                            secretKeyRef: {
+                                                key: "database-user",
+                                                name: "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
                                     },
                                     {
-                                        "name": "MYSQL_PASSWORD",
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "database-password",
-                                                "name": "${DATABASE_SERVICE_NAME}"
+                                        name: "MYSQL_PASSWORD",
+                                        valueFrom: {
+                                            secretKeyRef: {
+                                                key: "database-password",
+                                                name: "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
                                     },
                                     {
-                                        "name": "MYSQL_ROOT_PASSWORD",
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "database-root-password",
-                                                "name": "${DATABASE_SERVICE_NAME}"
+                                        name: "MYSQL_ROOT_PASSWORD",
+                                        valueFrom: {
+                                            secretKeyRef: {
+                                                key: "database-root-password",
+                                                name: "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
                                     },
                                     {
-                                        "name": "MYSQL_DATABASE",
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "database-name",
-                                                "name": "${DATABASE_SERVICE_NAME}"
+                                        name: "MYSQL_DATABASE",
+                                        valueFrom: {
+                                            secretKeyRef: {
+                                                key: "database-name",
+                                                name: "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
                                     }
                                 ],
-                                "image": " ",
-                                "imagePullPolicy": "IfNotPresent",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "tcpSocket": {
-                                        "port": "${{MYSQL_PORT}}"
+                                image: " ",
+                                imagePullPolicy: "IfNotPresent",
+                                livenessProbe: {
+                                    initialDelaySeconds: 30,
+                                    tcpSocket: {
+                                        port: "${{MYSQL_PORT}}"
                                     },
-                                    "timeoutSeconds": 1
+                                    timeoutSeconds: 1
                                 },
-                                "name": "mysql",
-                                "ports": [
+                                name: "mysql",
+                                ports: [
                                     {
-                                        "containerPort": "${{MYSQL_PORT}}"
+                                        containerPort: "${{MYSQL_PORT}}"
                                     }
                                 ],
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
+                                readinessProbe: {
+                                    exec: {
+                                        command: [
                                             "/bin/sh",
                                             "-i",
                                             "-c",
                                             "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
                                         ]
                                     },
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1
+                                    initialDelaySeconds: 5,
+                                    timeoutSeconds: 1
                                 },
-                                "resources": {
-                                    "limits": {
-                                        "memory": "${MEMORY_LIMIT}"
+                                resources: {
+                                    limits: {
+                                        memory: "${MEMORY_LIMIT}"
                                     }
                                 },
-                                "volumeMounts": [
+                                volumeMounts: [
                                     {
-                                        "mountPath": "/var/lib/mysql/data",
-                                        "name": "${DATABASE_SERVICE_NAME}-data"
+                                        mountPath: "/var/lib/mysql/data",
+                                        name: "${DATABASE_SERVICE_NAME}-data"
                                     }
                                 ]
                             }
                         ],
-                        "volumes": [
+                        volumes: [
                             {
-                                "name": "${DATABASE_SERVICE_NAME}-data",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${DATABASE_SERVICE_NAME}"
+                                name: "${DATABASE_SERVICE_NAME}-data",
+                                persistentVolumeClaim: {
+                                    claimName: "${DATABASE_SERVICE_NAME}"
                                 }
                             }
                         ]
                     }
                 },
-                "triggers": [
+                triggers: [
                     {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
+                        imageChangeParams: {
+                            automatic: true,
+                            containerNames: [
                                 "mysql"
                             ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "mysql:${MYSQL_VERSION}",
-                                "namespace": "${NAMESPACE}"
+                            from: {
+                                kind: "ImageStreamTag",
+                                name: "mysql:${MYSQL_VERSION}",
+                                namespace: "${NAMESPACE}"
                             }
                         },
-                        "type": "ImageChange"
+                        type: "ImageChange"
                     },
                     {
-                        "type": "ConfigChange"
+                        type: "ConfigChange"
                     }
                 ]
             }
         }
     ],
-    "parameters": [
+    parameters: [
         {
-            "description": "Maximum amount of memory the container can use.",
-            "displayName": "Memory Limit",
-            "name": "MEMORY_LIMIT",
-            "required": true,
-            "value": "512Mi"
+            description: "Maximum amount of memory the container can use.",
+            displayName: "Memory Limit",
+            name: "MEMORY_LIMIT",
+            required: true,
+            value: "512Mi"
         },
         {
-            "description": "The OpenShift Namespace where the ImageStream resides.",
-            "displayName": "Namespace",
-            "name": "NAMESPACE",
-            "value": "openshift"
+            description: "The OpenShift Namespace where the ImageStream resides.",
+            displayName: "Namespace",
+            name: "NAMESPACE",
+            value: "openshift"
         },
         {
-            "description": "The name of the OpenShift Service exposed for the database.",
-            "displayName": "Database Service Name",
-            "name": "DATABASE_SERVICE_NAME",
-            "required": true,
-            "value": "mysql"
+            description: "The name of the OpenShift Service exposed for the database.",
+            displayName: "Database Service Name",
+            name: "DATABASE_SERVICE_NAME",
+            required: true,
+            value: "mysql"
         },
         {
-            "description": "Username for MySQL user that will be used for accessing the database.",
-            "displayName": "MySQL Connection Username",
-            "from": "user[A-Z0-9]{3}",
-            "generate": "expression",
-            "name": "MYSQL_USER",
-            "required": true
+            description: "Username for MySQL user that will be used for accessing the database.",
+            displayName: "MySQL Connection Username",
+            from: "user[A-Z0-9]{3}",
+            generate: "expression",
+            name: "MYSQL_USER",
+            required: true
         },
         {
-            "description": "Password for the MySQL connection user.",
-            "displayName": "MySQL Connection Password",
-            "from": "[a-zA-Z0-9]{16}",
-            "generate": "expression",
-            "name": "MYSQL_PASSWORD",
-            "required": true
+            description: "Password for the MySQL connection user.",
+            displayName: "MySQL Connection Password",
+            from: "[a-zA-Z0-9]{16}",
+            generate: "expression",
+            name: "MYSQL_PASSWORD",
+            required: true
         },
         {
-            "description": "Password for the MySQL root user.",
-            "displayName": "MySQL root user Password",
-            "from": "[a-zA-Z0-9]{16}",
-            "generate": "expression",
-            "name": "MYSQL_ROOT_PASSWORD",
-            "required": true
+            description: "Password for the MySQL root user.",
+            displayName: "MySQL root user Password",
+            from: "[a-zA-Z0-9]{16}",
+            generate: "expression",
+            name: "MYSQL_ROOT_PASSWORD",
+            required: true
         },
         {
-            "description": "Name of the MySQL database accessed.",
-            "displayName": "MySQL Database Name",
-            "name": "MYSQL_DATABASE",
-            "required": true,
-            "value": "sampledb"
+            description: "Name of the MySQL database accessed.",
+            displayName: "MySQL Database Name",
+            name: "MYSQL_DATABASE",
+            required: true,
+            value: "sampledb"
         },
         {
-            "description": "Volume space available for data, e.g. 512Mi, 2Gi.",
-            "displayName": "Volume Capacity",
-            "name": "VOLUME_CAPACITY",
-            "required": true,
-            "value": "1Gi"
+            description: "Volume space available for data, e.g. 512Mi, 2Gi.",
+            displayName: "Volume Capacity",
+            name: "VOLUME_CAPACITY",
+            required: true,
+            value: "1Gi"
         },
         {
-            "description": "Version of MySQL image to be used (5.7, or latest).",
-            "displayName": "Version of MySQL Image",
-            "name": "MYSQL_VERSION",
-            "required": true,
-            "value": "5.7"
+            description: "Version of MySQL image to be used (5.7, or latest).",
+            displayName: "Version of MySQL Image",
+            name: "MYSQL_VERSION",
+            required: true,
+            value: "5.7"
         },
         {
-            "description": "Port of MySQL image to be used (5.7, or latest).",
-            "displayName": "Port of MySQL Image",
-            "name": "MYSQL_PORT",
-            "required": true,
-            "value": "3306"
+            description: "Port of MySQL image to be used (5.7, or latest).",
+            displayName: "Port of MySQL Image",
+            name: "MYSQL_PORT",
+            required: true,
+            value: "3306"
         }
     ]
 }
