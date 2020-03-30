@@ -1,72 +1,72 @@
 {
-    "apiVersion": "v1",
-    "kind": "Template",
-    "labels": {
-        "template": "mysql-persistent-template"
+    apiVersion: "v1",
+    kind: "Template",
+    labels: {
+        template: "mysql-persistent-template"
     },
-    "message": "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${MYSQL_USER}\n       Password: ${MYSQL_PASSWORD}\n  Database Name: ${MYSQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:3306/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.",
-    "metadata": {
-        "annotations": {
-            "description": "MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
-            "iconClass": "icon-mysql-database",
-            "openshift.io/display-name": "MySQL",
-            "openshift.io/documentation-url": "https://docs.okd.io/latest/using_images/db_images/mysql.html",
-            "openshift.io/long-description": "This template provides a standalone MySQL server with a database created.  The database is stored on persistent storage.  The database name, username, and password are chosen via parameters when provisioning this service.",
-            "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "openshift.io/support-url": "https://access.redhat.com",
-            "tags": "database,mysql"
+    message: "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${MYSQL_USER}\n       Password: ${MYSQL_PASSWORD}\n  Database Name: ${MYSQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:3306/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.",
+    metadata: {
+        annotations: {
+            description: "MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+            iconClass: "icon-mysql-database",
+            openshift.io/display-name: "MySQL",
+            openshift.io/documentation-url: "https://docs.okd.io/latest/using_images/db_images/mysql.html",
+            openshift.io/long-description: "This template provides a standalone MySQL server with a database created.  The database is stored on persistent storage.  The database name, username, and password are chosen via parameters when provisioning this service.",
+            openshift.io/provider-display-name: "Red Hat, Inc.",
+            openshift.io/support-url: "https://access.redhat.com",
+            tags: "database,mysql"
         },
-        "name": "mysql-persistent"
+        name: "mysql-persistent"
     },
-    "objects": [
+    objects: [
         {
-            "apiVersion": "v1",
-            "kind": "Secret",
-            "metadata": {
-                "annotations": {
-                    "template.openshift.io/expose-database_name": "{.data['database-name']}",
-                    "template.openshift.io/expose-password": "{.data['database-password']}",
-                    "template.openshift.io/expose-root_password": "{.data['database-root-password']}",
-                    "template.openshift.io/expose-username": "{.data['database-user']}"
+            apiVersion: "v1",
+            kind: "Secret",
+            metadata: {
+                annotations: {
+                    template.openshift.io/expose-database_name: "{.data['database-name']}",
+                    template.openshift.io/expose-password: "{.data['database-password']}",
+                    template.openshift.io/expose-root_password: "{.data['database-root-password']}",
+                    template.openshift.io/expose-username: "{.data['database-user']}"
                 },
-                "name": "${DATABASE_SERVICE_NAME}"
+                name: "${DATABASE_SERVICE_NAME}"
             },
-            "stringData": {
-                "database-name": "${MYSQL_DATABASE}",
-                "database-password": "${MYSQL_PASSWORD}",
-                "database-root-password": "${MYSQL_ROOT_PASSWORD}",
-                "database-user": "${MYSQL_USER}"
+            stringData: {
+                database-name: "${MYSQL_DATABASE}",
+                database-password: "${MYSQL_PASSWORD}",
+                database-root-password: "${MYSQL_ROOT_PASSWORD}",
+                database-user: "${MYSQL_USER}"
             }
         },
         {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "template.openshift.io/expose-uri": "mysql://{.spec.clusterIP}:{.spec.ports[?(.name==\"mysql\")].port}"
+            apiVersion: "v1",
+            kind: "Service",
+            metadata: {
+                annotations: {
+                    template.openshift.io/expose-uri: "mysql://{.spec.clusterIP}:{.spec.ports[?(.name==\"mysql\")].port}"
                 },
-                "name": "${DATABASE_SERVICE_NAME}"
+                name: "${DATABASE_SERVICE_NAME}"
             },
-            "spec": {
-                "ports": [
+            spec: {
+                ports: [
                     {
-                        "name": "mysql",
-                        "port": "${{MYSQL_PORT}}"
+                        name: "mysql",
+                        port: "${{MYSQL_PORT}}"
                     }
                 ],
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
+                selector: {
+                    name: "${DATABASE_SERVICE_NAME}"
                 }
             }
         },
         {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
+            apiVersion: "v1",
+            kind: "PersistentVolumeClaim",
+            metadata: {
+                name: "${DATABASE_SERVICE_NAME}"
             },
-            "spec": {
-                "accessModes": [
+            spec: {
+                accessModes: [
                     "ReadWriteOnce"
                 ],
                 "resources": {
