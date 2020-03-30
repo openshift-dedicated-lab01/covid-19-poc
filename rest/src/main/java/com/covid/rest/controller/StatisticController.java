@@ -107,8 +107,12 @@ public class StatisticController {
 		Statistic statisticInDB = statisticRepository.findByCountryAndProvince(country, province);
 		
 		// If the entry exists in the DB, update it
-		if( statisticInDB == null)
+		if( statisticInDB == null){
 			statisticInDB = Statistic.getInstance();
+			statisticInDB.setCountry(country);
+			statisticInDB.setCountryCode(statistic.getCountryCode());
+			statisticInDB.setProvince(province);
+		}
 
 		statisticInDB.setConfirmed(confirmed);
 		statisticInDB.setDeaths(deaths);
