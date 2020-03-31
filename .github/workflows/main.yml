@@ -37,11 +37,11 @@ jobs:
         image_name: ${{ github.repository }}
         image_tag: ${{ github.ref }}
       run: |
-        docker build -t $registry/$openshift_project/rest:latest.
-        docker build -t $registry/$openshift_project/batch:latest.
+        docker build -t $registry/$openshift_project/${image_name##*/}/rest:${image_tag##*/} .
+        docker build -t $registry/$openshift_project/${image_name##*/}/batch:${image_tag##*/} .
         docker login -u the_user_dont_matter -p $registry_password $registry
-        docker push $registry/$openshift_project/rest:latest
-        docker push $registry/$openshift_project/batch:latest
+        docker push $registry/$openshift_project/${image_name##*/}/rest:${image_tag##*/}
+        docker push $registry/$openshift_project/${image_name##*/}/batch:${image_tag##*/}
         
     # BUG - Impossible de rediriger l'output ou de piper. 
     # https://github.com/redhat-developer/openshift-actions/issues/13
