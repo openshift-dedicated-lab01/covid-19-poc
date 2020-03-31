@@ -37,6 +37,8 @@ jobs:
         image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
+        find . -name DockerFile
+        pwd
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} ./rest 
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
