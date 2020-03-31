@@ -37,7 +37,7 @@ jobs:
         image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
-        cd ~/rest
+        cd ~/work/covid-19-poc/rest
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
@@ -50,7 +50,7 @@ jobs:
         image_name: ${{ github.repository }}-batch
         image_tag: ${{ github.ref }}
       run: |
-        cd ~/batch
+        cd ~/work/covid-19-poc/batch
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
