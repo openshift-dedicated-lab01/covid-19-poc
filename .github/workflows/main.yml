@@ -37,7 +37,7 @@ jobs:
         image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
-        cd ~/work/covid-19-poc/rest
+        find . -name DockerFile
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
