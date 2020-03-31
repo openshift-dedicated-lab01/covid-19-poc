@@ -1,4 +1,4 @@
-# RestApi
+# covid-19-poc Rest App
 
 ## Api Documentation
 A rest application that provides the latest metrics on Corona related matters.
