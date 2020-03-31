@@ -40,8 +40,8 @@ jobs:
         find . -name DockerFile
         pwd
         ls -ltr ./rest/DockerFile
-        docker build -t covid-19-rest:2.1 ./rest
-        docker login -u the_user_dont_matter -p $registry_password $registry
+        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/}  ./rest
+         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
 
     - name: Build & Push the batch container image
