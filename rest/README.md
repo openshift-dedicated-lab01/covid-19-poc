@@ -33,4 +33,10 @@ The H2 Console is configured as follows:
 |MYSQL_HOST| The MySQL host or IP, note the port defaults to 3306 |localhost|
 |MYSQL_DBNAME| The database should already exist, the app does not create it |db_example|
 |MYSQL_USER| Any prexisting user will do. It is suggested not to use the root |springuser|
-|MYSQL_PASS| The MySQL password |password|
+|MYSQL_PASS| The MySQL password that matches the concerned user |password|
+
+> Note that the database user should have the proper permissions. This step can be skipped depending on your setup.
+```SQL
+CREATE USER 'springuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON db_example.* TO 'springuser'@'localhost';
+```
