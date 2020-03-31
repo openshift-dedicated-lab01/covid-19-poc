@@ -28,7 +28,7 @@ The H2 Console is configured as follows:
 ### MySQL
 
 |ENV VARS    |Description    |Default Vaue|
-|------------|:-------------:|------------|
+|------------|---------------|------------|
 |SPRING_DATASOURCE| Set this to 'mysql' to activate the MySQL Database |h2|
 |MYSQL_HOST| The MySQL host or IP, note the port defaults to 3306 |localhost|
 |MYSQL_DBNAME| The database should already exist, the app does not create it |db_example|
