@@ -37,7 +37,7 @@ jobs:
         image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
-        docker build ./rest -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
+        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} ./rest 
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
 
@@ -49,7 +49,7 @@ jobs:
         image_name: ${{ github.repository }}-batch
         image_tag: ${{ github.ref }}
       run: |
-        docker build ./batch -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
+        docker build ./batch -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} ./batch
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
 
