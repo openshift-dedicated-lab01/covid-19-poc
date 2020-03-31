@@ -36,7 +36,7 @@ jobs:
         registry: ${{ secrets.OPENSHIFT_REGISTRY }}
         registry_password: ${{ secrets.OPENSHIFT_API_TOKEN }}
         openshift_project: fl-project
-        image_name: ${{ github.repository }}
+        image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
@@ -50,7 +50,7 @@ jobs:
         registry: ${{ secrets.OPENSHIFT_REGISTRY }}
         registry_password: ${{ secrets.OPENSHIFT_API_TOKEN }}
         openshift_project: fl-project
-        image_name: ${{ github.repository }}
+        image_name: ${{ github.repository }}-batch
         image_tag: ${{ github.ref }}
       run: |
         docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
