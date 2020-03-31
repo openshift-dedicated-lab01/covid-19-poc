@@ -12,4 +12,3 @@ COPY target/*.jar rest.jar
 
 # L'application batch.jar sera exécutée en sh
 CMD ["sh", "-c", "java -jar $JAVA_OPTS rest.jar"]
-

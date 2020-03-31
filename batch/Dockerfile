@@ -12,4 +12,3 @@ COPY target/*.jar batch.jar
 
 # L'application batch.jar sera exécutée en sh
 CMD ["sh", "-c", "java -jar $JAVA_OPTS batch.jar"]
-
