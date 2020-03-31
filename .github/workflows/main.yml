@@ -39,7 +39,8 @@ jobs:
       run: |
         find . -name DockerFile
         pwd
-        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} ./rest 
+        ls -ltr ./rest/DockerFile
+        docker build ./rest -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
 
@@ -51,7 +52,7 @@ jobs:
         image_name: ${{ github.repository }}-batch
         image_tag: ${{ github.ref }}
       run: |
-        docker build ./batch -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} ./batch
+        docker build ./batch -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
 
