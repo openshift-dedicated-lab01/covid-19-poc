@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v2            
+    - uses: actions/checkout@v2
 
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
@@ -29,18 +29,30 @@ jobs:
       run: mvn -B install --file pom.xml
       #run: mvn -B install --file pom.xml -Dmaven.test.skip=true
 
-    - name: Build & Push the container image
+    - name: Build & Push the rest container image
       env:
         registry: ${{ secrets.OPENSHIFT_REGISTRY }}
         registry_password: ${{ secrets.OPENSHIFT_API_TOKEN }}
         openshift_project: fl-project
-        image_name: ${{ github.repository }}
+        image_name: ${{ github.repository }}-rest
         image_tag: ${{ github.ref }}
       run: |
-        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/} .
+        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/}  ./rest
+         docker login -u the_user_dont_matter -p $registry_password $registry
+        docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
+
+    - name: Build & Push the batch container image
+      env:
+        registry: ${{ secrets.OPENSHIFT_REGISTRY }}
+        registry_password: ${{ secrets.OPENSHIFT_API_TOKEN }}
+        openshift_project: fl-project
+        image_name: ${{ github.repository }}-batch
+        image_tag: ${{ github.ref }}
+      run: |
+        docker build -t $registry/$openshift_project/${image_name##*/}:${image_tag##*/}  ./batch
         docker login -u the_user_dont_matter -p $registry_password $registry
         docker push $registry/$openshift_project/${image_name##*/}:${image_tag##*/}
-        
+
     # BUG - Impossible de rediriger l'output ou de piper. 
     # https://github.com/redhat-developer/openshift-actions/issues/13
     - name: OpenShift Action
@@ -49,7 +61,7 @@ jobs:
         version: 'latest'
         openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
         parameters: '{"apitoken": "${{ secrets.OPENSHIFT_API_TOKEN }}", "acceptUntrustedCerts": "true"}'
-        cmd: |          
+        cmd: |
           'version'
           'registry info'
           'project'
