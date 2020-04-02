@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -49,6 +50,9 @@ public class Statistic {
 	
 	@Column(name = "mortality_per")
 	private Double mortalityPer;
+	
+    @Version
+    private Integer version;
 
 	protected Statistic() {}
 	
@@ -122,6 +126,14 @@ public class Statistic {
 
 	public void setMortalityPer(Double mortalityPer) {
 		this.mortalityPer = mortalityPer;
+	}
+	
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 	
 	public static Statistic getInstance() {
