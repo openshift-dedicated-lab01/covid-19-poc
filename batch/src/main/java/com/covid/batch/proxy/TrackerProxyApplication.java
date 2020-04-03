@@ -28,8 +28,8 @@ public class TrackerProxyApplication {
 	private static final Logger log = LoggerFactory.getLogger(TrackerProxyApplication.class);
 	private static final String DEFAULT_COVID_INPUT_URL = "https://localhost:8800/?source=1&format=json";
 	private static final String DEFAULT_COVID_OUTPUT_URL = "http://localhost:8080/statistic";
-	private static final String INPUT_URL_PROPERTY_NAME = "covid.input.url";
-	private static final String OUTPUT_URL_PROPERTY_NAME = "covid.output.url";
+	private static final String INPUT_URL_PROPERTY_NAME = "COVID_INPUT_URL";
+	private static final String OUTPUT_URL_PROPERTY_NAME = "COVID_OUTPUT_URL";
 
 	@Autowired
 	private Environment env;
