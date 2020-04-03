@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.covid.rest.component.State;
 import com.covid.rest.entity.Statistic;
 import com.covid.rest.service.StatisticRepository;
 
@@ -21,6 +22,14 @@ public class StatisticController {
 	
 	@Autowired
 	private StatisticRepository statisticRepository;
+	
+	@Autowired
+	private State state;
+	
+	@GetMapping(path = "/state")
+	public int getState() {
+		return state.getInstance().getNumber();
+	}
 	
 	@GetMapping(path = "/stats/confirmed")
 	public int getWorldConfirmed() {
