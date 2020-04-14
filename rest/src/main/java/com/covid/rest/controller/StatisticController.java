@@ -104,6 +104,11 @@ public class StatisticController {
 	@PutMapping(path = "/stats/update")
 	public void updateEntry(@RequestBody Statistic statistic) {
 		
+		// Ignore any attempt at adding the World entry
+		if (statistic.getCountry().contains("World")) {
+			return;
+		}
+		
 		// Get all the parameters from the response
 		String country = statistic.getCountry();
 		String province = statistic.getProvince();
